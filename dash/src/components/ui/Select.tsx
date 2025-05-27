@@ -3,6 +3,7 @@
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from "@headlessui/react";
 import { useState } from "react";
 import clsx from "clsx";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 type Option<T> = {
 	value: T;
@@ -37,7 +38,7 @@ export default function Select<T>({ placeholder, options, selected, setSelected 
 					onChange={(event) => setQuery(event.target.value)}
 				/>
 				<ComboboxButton className="group absolute inset-y-0 right-0 px-2.5">
-					{/* <ChevronDownIcon className="size-4 fill-white/60 group-data-hover:fill-white" /> */}
+					{ <ChevronDownIcon className="size-4 fill-white/60 group-data-hover:fill-white" /> }
 				</ComboboxButton>
 			</div>
 

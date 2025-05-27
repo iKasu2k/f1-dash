@@ -68,10 +68,10 @@ export default function Driver({ driver, timingDriver, position }: Props) {
 				style={{
 					gridTemplateColumns: carMetrics
 						? "5.5rem 3.5rem 5.5rem 4rem 5rem 5.5rem auto 10.5rem"
-						: "5.5rem 3.5rem 5.5rem 4rem 5rem 5.5rem auto",
+						: "8.5rem 3.5rem 5.5rem 4rem 5rem 5.5rem auto",
 				}}
 			>
-				<DriverTag className="min-w-full!" short={driver.tla} teamColor={driver.teamColour} position={position} />
+				<DriverTag className="min-w-full!" short={driver.tla} racingNumber={driver.racingNumber} teamColor={driver.teamColour} position={position} />
 				<DriverDRS
 					on={carData ? hasDRS(carData[45]) : false}
 					possible={carData ? possibleDRS(carData[45]) : false}

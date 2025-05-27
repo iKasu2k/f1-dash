@@ -3,11 +3,12 @@ import clsx from "clsx";
 type Props = {
 	teamColor: string;
 	short: string;
+	racingNumber?: string;
 	position?: number;
 	className?: string;
 };
 
-export default function DriverTag({ position, teamColor, short, className }: Props) {
+export default function DriverTag({ position, teamColor, short, racingNumber, className }: Props) {
 	return (
 		<div
 			id="walkthrough-driver-position"
@@ -20,8 +21,8 @@ export default function DriverTag({ position, teamColor, short, className }: Pro
 			{position && <p className="px-1 text-xl leading-none">{position}</p>}
 
 			<div className="flex h-min w-min items-center justify-center rounded-md bg-white px-1">
-				<p className="font-mono text-zinc-500" style={{ ...(teamColor && { color: `#${teamColor}` }) }}>
-					{short}
+				<p className="font-mono text-zinc-500 whitespace-nowrap" style={{ ...(teamColor && { color: `#${teamColor}` }) }}>
+					{short} {racingNumber ? '('+racingNumber+')' : ''}
 				</p>
 			</div>
 		</div>

@@ -5,9 +5,13 @@ import RaceControl from "@/components/dashboard/RaceControl";
 import TeamRadios from "@/components/dashboard/TeamRadios";
 import TrackViolations from "@/components/dashboard/TrackViolations";
 import Map from "@/components/dashboard/Map";
+import Map3D from "@/components/map/Map3D";
 import Footer from "@/components/Footer";
+import { useSettingsStore } from "@/stores/useSettingsStore";
 
 export default function Page() {
+	const settings = useSettingsStore();
+
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<div className="flex w-full flex-col gap-2 2xl:flex-row">
@@ -16,7 +20,8 @@ export default function Page() {
 				</div>
 
 				<div className="flex-1 2xl:max-h-[50rem]">
-					<Map />
+					
+					<div className="hidden w-full xl:block">{settings.use3DMap ? <Map3D /> : <Map />}</div>
 				</div>
 			</div>
 

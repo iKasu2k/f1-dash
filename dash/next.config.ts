@@ -28,6 +28,16 @@ const compress = process.env.NEXT_NO_COMPRESS === "1";
 const config: NextConfig = {
 	output,
 	compress,
+	webpack: (
+		config,
+	) => {
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            "sharp$": false,
+            "onnxruntime-node$": false,
+        }
+		return config
+	},
 	env: {
 		version: pack.version,
 	},

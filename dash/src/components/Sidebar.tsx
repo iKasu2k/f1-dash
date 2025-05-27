@@ -19,13 +19,17 @@ const liveTimingItems = [
 		name: "Dashboard",
 	},
 	{
+		href: "/stream",
+		name: "Stream",
+	},
+	{
+		href: "https://stream.ikasu2k.eu",
+		name: "F1 - Stream",
+	},
+	{
 		href: "/dashboard/track-map",
 		name: "Track Map",
 	},
-	// {
-	// 	href: "/dashboard/head-to-head",
-	// 	name: "Head to Head",
-	// },
 	{
 		href: "/dashboard/standings",
 		name: "Standings",
@@ -41,16 +45,6 @@ type Props = {
 };
 
 export default function Sidebar({ connected }: Props) {
-	// const favoriteDrivers = useSettingsStore((state) => state.favoriteDrivers);
-	// const drivers = useDataStore((state) => state.driverList);
-
-	// const driverItems = drivers
-	// 	? favoriteDrivers.map((nr) => ({
-	// 			href: `/dashboard/driver/${nr}`,
-	// 			name: drivers[nr].fullName,
-	// 		}))
-	// 	: null;
-
 	const { opened, pinned } = useSidebarStore();
 	const close = useSidebarStore((state) => state.close);
 	const open = useSidebarStore((state) => state.open);
@@ -142,15 +136,6 @@ export default function Sidebar({ connected }: Props) {
 						<Item target="_blank" item={{ href: "/schedule", name: "Schedule" }} />
 						<Item target="_blank" item={{ href: "/help", name: "Help" }} />
 						<Item target="_blank" item={{ href: "/", name: "Home" }} />
-					</div>
-
-					<p className="mt-4 p-2 text-sm text-zinc-500">Links</p>
-
-					<div className="flex flex-col gap-1">
-						<Item target="_blank" item={{ href: "https://github.com/slowlydev/f1-dash", name: "Github" }} />
-						<Item target="_blank" item={{ href: "https://discord.gg/unJwu66NuB", name: "Discord" }} />
-						<Item target="_blank" item={{ href: "https://buymeacoffee.com/slowlydev", name: "Buy me a coffee" }} />
-						<Item target="_blank" item={{ href: "https://github.com/sponsors/slowlydev", name: "Sponsor me" }} />
 					</div>
 				</nav>
 			</motion.div>

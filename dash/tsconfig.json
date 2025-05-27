@@ -32,7 +32,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/asr-worker.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -7,6 +7,7 @@ use tracing::info;
 
 use crate::{LiveEvent, LiveState};
 
+mod audio;
 mod cors;
 mod drivers;
 mod health;
@@ -33,6 +34,7 @@ pub async fn init(
         .route("/api/sse", get(live::sse_handler))
         .route("/api/health", get(health::check))
         .route("/api/drivers", get(drivers::get_drivers))
+        .route("/api/audio", get(audio::get_audio))
         .layer(cors)
         .with_state(app_state)
         .into_make_service_with_connect_info::<SocketAddr>();

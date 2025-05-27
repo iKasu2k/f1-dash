@@ -37,6 +37,9 @@ type SettingsStore = {
 
 	delayIsPaused: boolean;
 	setDelayIsPaused: (delayIsPaused: boolean) => void;
+
+	use3DMap: boolean;
+	setUse3DMap: (use3DMap: boolean) => void;
 };
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -77,6 +80,9 @@ export const useSettingsStore = create<SettingsStore>()(
 
 				delayIsPaused: true,
 				setDelayIsPaused: (delayIsPaused: boolean) => set({ delayIsPaused }),
+
+				use3DMap: false,
+				setUse3DMap: (use3DMap: boolean) => set({ use3DMap }),
 			}),
 			{
 				name: "settings-storage",

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { utc } from "moment";
 import clsx from "clsx";
@@ -18,15 +18,31 @@ type Props = {
 	capture: RadioCapture;
 	basePath: string;
 	gmtOffset: string;
+	transcription?: string;
 };
 
-export default function RadioMessage({ driver, capture, basePath, gmtOffset }: Props) {
+export default function RadioMessage({ driver, capture, basePath, gmtOffset, transcription  }: Props) {
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 	const [playing, setPlaying] = useState<boolean>(false);
 	const [duration, setDuration] = useState<number>(10);
 	const [progress, setProgress] = useState<number>(0);
+
+	const transcriptionElement = useMemo(() => {
+		if (transcription === undefined) {
+				return <></>;
+			} else if (transcription === "") {
+				return <p></p>;
+			} else {
+				return (
+					<p className="font-small text-sm" style={{ whiteSpace: "pre-wrap" }}>
+						{transcription}
+					</p>
+				);
+			}
+		}, [transcription]);
+	
 
 	const loadMeta = () => {
 		if (!audioRef.current) return;
@@ -104,6 +120,7 @@ export default function RadioMessage({ driver, capture, basePath, gmtOffset }: P
 					onLoadedMetadata={() => loadMeta()}
 				/>
 			</div>
+			<div className="gap-1">{transcriptionElement}</div>
 		</motion.li>
 	);
 }

@@ -15,10 +15,12 @@ import { sortPos } from "@/lib/sorting";
 import { useCarDataStore, useDataStore } from "@/stores/useDataStore";
 import { Driver, TimingDataDriver } from "@/types/state.type";
 import { useSettingsStore } from "@/stores/useSettingsStore";
+import Map3D from "@/components/map/Map3D";
 
 export default function TrackMap() {
 	const drivers = useDataStore((state) => state?.driverList);
 	const driversTiming = useDataStore((state) => state?.timingData);
+	const settings = useSettingsStore();
 
 	return (
 		<div className="flex flex-col-reverse md:h-full md:flex-row">
@@ -43,7 +45,7 @@ export default function TrackMap() {
 			</div>
 
 			<div className="md:flex-1">
-				<Map />
+				{settings.use3DMap ? <Map3D /> : <Map />}
 			</div>
 		</div>
 	);
@@ -96,10 +98,10 @@ const TrackMapDriver = ({ position, driver, timingDriver }: TrackMapDriverProps)
 			<div
 				className="grid items-center gap-2"
 				style={{
-					gridTemplateColumns: "5.5rem 3.5rem 4rem 5rem 5rem",
+					gridTemplateColumns: "8.5rem 3.5rem 4rem 5rem 5rem",
 				}}
 			>
-				<DriverTag className="min-w-full!" short={driver.tla} teamColor={driver.teamColour} position={position} />
+				<DriverTag className="min-w-full!" short={driver.tla} racingNumber={driver.racingNumber} teamColor={driver.teamColour} position={position} />
 				<DriverDRS
 					on={carData ? hasDRS(carData[45]) : false}
 					possible={carData ? possibleDRS(carData[45]) : false}

@@ -12,15 +12,25 @@ import DelayTimer from "@/components/DelayTimer";
 import Toggle from "@/components/ui/Toggle";
 
 import { useSettingsStore } from "@/stores/useSettingsStore";
+import { models, useTranscriptionStore } from "@/stores/useTranscriptionStore";
+
 import Footer from "@/components/Footer";
+import Select from "@/components/ui/Select";
 
 export default function SettingsPage() {
 	const settings = useSettingsStore();
+	const transcription = useTranscriptionStore();
+
 	return (
 		<div>
 			<h1 className="mb-4 text-3xl">Settings</h1>
 
 			<h2 className="my-4 text-2xl">Visual</h2>
+
+			<div className="flex gap-2">
+				<Toggle enabled={settings.use3DMap} setEnabled={(v) => settings.setUse3DMap(v)} />
+				<p className="text-zinc-500">Use 3D Map (Experimental)</p>
+			</div>
 
 			<div className="flex gap-2">
 				<Toggle enabled={settings.carMetrics} setEnabled={(v) => settings.setCarMetrics(v)} />
@@ -45,6 +55,20 @@ export default function SettingsPage() {
 			<div className="flex gap-2">
 				<Toggle enabled={settings.showMiniSectors} setEnabled={(v) => settings.setShowMiniSectors(v)} />
 				<p className="text-zinc-500">Show Drivers Mini Sectors</p>
+			</div>
+
+			<h2 className="my-4 text-2xl">Enable Radio Transcription</h2>
+
+			<p className="mb-4">Only available when the corresponding feature is enabled from server.</p>
+
+			<div className="flex gap-2">
+				<Toggle enabled={transcription.enabled} setEnabled={(v) => transcription.setEnabled(v)} />
+				<p className="text-zinc-500">Enable Radio Transcription</p>
+			</div>
+
+			<div className="flex gap-2">
+				<Select placeholder="Model" options={models} selected={transcription.model ?? models[0].value} setSelected={(v) => transcription.setModel(v ?? models[0].value)} />
+				<p className="text-zinc-500">Transcription Mode</p>
 			</div>
 
 			<h2 className="my-4 text-2xl">Race Control</h2>
