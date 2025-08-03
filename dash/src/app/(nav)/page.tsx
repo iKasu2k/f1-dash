@@ -1,10 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-
 import Button from "@/components/ui/Button";
-import ScrollHint from "@/components/ScrollHint";
-
-import icon from "public/tag-logo.svg";
 
 export default function Home() {
 	return (

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 
 import type { PositionCar } from "@/types/state.type";
-import type { Map, TrackPosition } from "@/types/map.type";
+import type { FlagType, Map, TrackPosition } from "@/types/map.type";
 
 import { fetchMap } from "@/lib/fetchMap";
 
@@ -107,7 +107,12 @@ export default function Map() {
 
 		return sectors
 			.map((sector) => {
-				const color = getSectorColor(sector, status?.bySector, status?.trackColor, yellowSectors);
+				const color = getSectorColor(
+					sector,
+					status?.bySector,
+					status?.trackColor as FlagType | undefined,
+					yellowSectors
+				) as string;
 				return {
 					color,
 					pulse: status?.pulse,

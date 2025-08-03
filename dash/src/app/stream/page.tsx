@@ -10,7 +10,7 @@ type StreamURLs = {
 	label: string;
 }[]
 
-export const streamURLs: StreamURLs = [
+const streamURLs: StreamURLs = [
 	{
 		value: "https://wikisport.best/embed/skyf1.php",
 		label: "Stream #1",

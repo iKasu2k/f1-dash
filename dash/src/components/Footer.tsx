@@ -23,16 +23,3 @@ export default function Footer() {
 		</footer>
 	);
 }
-
-type TextLinkProps = {
-	website: string;
-	children: string;
-};
-
-const TextLink = ({ website, children }: TextLinkProps) => {
-	return (
-		<a className="text-blue-500" target="_blank" href={website}>
-			{children}
-		</a>
-	);
-};

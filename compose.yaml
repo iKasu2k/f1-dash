@@ -1,48 +1,70 @@
 services:
   live:
-    image: ghcr.io/slowlydev/f1-dash-live:latest
+    image: f1-dash-live
     build:
       context: .
       target: live
     restart: unless-stopped
+    networks:
+      - web
     ports:
       - 4000:4000
     environment:
-      - ORIGIN=http://localhost:3000
+      - ORIGIN=https://dash.ikasu2k.eu
       - LIVE_BACKEND_ADDRESS=0.0.0.0:4000
       - RUST_LOG="live=debug"
+      - ENABLE_AUDIO_FETCH="true"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.live-dash.entrypoints=web,websecure"
+      - "traefik.http.routers.live-dash.rule=Host(`live-dash.ikasu2k.eu`)"
+      - "traefik.http.routers.live-dash.service=live-dash-service"
+      - "traefik.http.services.live-dash-service.loadbalancer.server.port=4000"
+      - "traefik.http.routers.live-dash.tls=true"
+      - "traefik.http.routers.live-dash.tls.certresolver=staging"
+
 
   api:
-    image: ghcr.io/slowlydev/f1-dash-api:latest
+    image: f1-dash-api
     build:
       context: .
       target: api
     restart: unless-stopped
+    networks:
+      - web
     ports:
       - 4001:4001
     environment:
-      - ORIGIN=http://localhost:3000
+      - ORIGIN=https://dash.ikasu2k.eu
       - API_BACKEND_ADDRESS=0.0.0.0:4001
       - RUST_LOG="api=debug"
 
   frontend:
-    image: ghcr.io/slowlydev/f1-dash:latest
+    image: f1-dash
     build:
       context: ./dash/
     restart: unless-stopped
     ports:
       - 3000:3000
-
+    networks:
+      - web
     depends_on:
       - api
       - live
     environment:
-      - NEXT_PUBLIC_LIVE_URL=http://localhost:4000
+      - NEXT_PUBLIC_LIVE_URL=https://live-dash.ikasu2k.eu
       - API_URL=http://api:4001
-
       - DISABLE_IFRAME=1
-
-      - TRACKING_ID=G-3ZKX0JY1QW
-      - TRACKING_URL=https://base.slowly.dev/rep.js
-
       - NEXT_PUBLIC_MAP_KEY=lcgTreisBzMYLrFFSTK2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dash.entrypoints=web,websecure"
+      - "traefik.http.routers.dash.rule=Host(`dash.ikasu2k.eu`)"
+      - "traefik.http.routers.dash.service=dash-service"
+      - "traefik.http.services.dash-service.loadbalancer.server.port=3000"
+      - "traefik.http.routers.dash.tls=true"
+      - "traefik.http.routers.dash.tls.certresolver=staging"
+
+networks:
+    web:
+      external: true
